@@ -5,7 +5,8 @@
 //////////////////////////////////////////////////
 
 // Sprite path
-const SPRITE_PATH = "img";
+const SPRITE_PATH = "img/";
+const SPRITE_PREFIX = "car-race-";
 
 // One second
 const ONE_SECOND = 1000;
@@ -30,6 +31,12 @@ const Screen = {
   Height: 480
 };
 
+// Car (player/computer) map
+const Car = {
+  Width: 48,
+  Height: 88
+}
+
 // Steps in showing the background image
 const Steps = {
   Front: 0,
@@ -44,18 +51,20 @@ const Steps = {
 
 class Sprite {
   constructor() {
+    this.prefix = SPRITE_PATH + SPRITE_PREFIX;
     this.front = null;
     this.instructions = null;
     this.background = null;
     this.player = null;
     this.computer = null;
+    this.characterMap = null;
   }
 
   // Initialize the main page image data
   async initFront(currentTime) {
     let img = new Image();
 
-    img.src = SPRITE_PATH + "/car-race-front.png?d=" + currentTime;
+    img.src = this.prefix + "front.png?d=" + currentTime;
     this.front = img.cloneNode(false);
   }
 
@@ -63,7 +72,7 @@ class Sprite {
   async initInstructions(currentTime) {
     let img = new Image();
 
-    img.src = SPRITE_PATH + "/car-race-instructions.png?d=" + currentTime;
+    img.src = this.prefix + "instructions.png?d=" + currentTime;
     this.instructions = img.cloneNode(false);
   }
 
@@ -71,7 +80,7 @@ class Sprite {
   async initBackground(currentTime) {
     let img = new Image();
 
-    img.src = SPRITE_PATH + "/car-race-background.png?d=" + currentTime;
+    img.src = this.prefix + "background.png?d=" + currentTime;
     this.background = img.cloneNode(false);
   }
 
@@ -79,7 +88,7 @@ class Sprite {
   async initPlayer(currentTime) {
     let img = new Image();
 
-    img.src = SPRITE_PATH + "/car-race-player.png?d=" + currentTime;
+    img.src = this.prefix + "player.png?d=" + currentTime;
     this.player = img.cloneNode(false);
   }
 
@@ -87,7 +96,15 @@ class Sprite {
   async initComputer(currentTime) {
     let img = new Image();
 
-    img.src = SPRITE_PATH + "/car-race-computer.png?d=" + currentTime;
+    img.src = this.prefix + "computer.png?d=" + currentTime;
+    this.computer = img.cloneNode(false);
+  }
+
+  // Initialize the character map
+  async initCharacterMap(currentTime) {
+    let img = new Image();
+
+    img.src = this.prefix + "character-map.png?d=" + currentTime;
     this.computer = img.cloneNode(false);
   }
 
@@ -100,6 +117,7 @@ class Sprite {
     await this.initBackground(currentTime);
     await this.initPlayer(currentTime);
     await this.initComputer(currentTime);
+    await this.initCharacterMap(currentTime);
   }
 }
 
@@ -117,6 +135,13 @@ class Drawing {
   static renderBackground(context, elm) {
     context.drawImage(elm, 0, 0, Screen.Width, Screen.Height);
   }
+
+  // Render the player car
+  static renderPlayer(context, elm) {
+    if (elm.show === true) {
+      context.drawImage(elm.img, elm.x, elm.y, Car.Width, Car.Height);
+    }
+  }
 }
 
 //////////////////////////////////////////////////
@@ -131,6 +156,12 @@ class CarRace {
     this.currentTime = null;
     this.lastRenderTime = null;
     this.step = Steps.Front;
+    this.player = {
+      img: null,
+      x: null,
+      y: null,
+      show: false
+    };
   }
 
   //Initialize the sprites data
@@ -143,11 +174,20 @@ class CarRace {
   }
 
   // Initialize the game data
-  initialize() {
+  async initialize() {
+    // Initialize the sprites data
+    await this.initSprites();
+
     this.background = this.sprite.front;
     this.currentTime = performance.now();
     this.lastRenderTime = this.currentTime;
     this.step = Steps.Front;
+    this.player = {
+      img: this.sprite.player,
+      x: (Screen.Width / 2) - (Car.Width / 2),
+      y: Screen.Height - Car.Height - 30,
+      show: false
+    };
   }
 
   // Change shown background image
@@ -163,6 +203,7 @@ class CarRace {
         break;
       case Steps.Background:
         this.background = this.sprite.background;
+        this.player.show = true;
 
         break;
     }
@@ -175,6 +216,9 @@ class CarRace {
 
     // Render the background image of the canvas
     Drawing.renderBackground(this.context, this.background);
+
+    // Render the player car
+    Drawing.renderPlayer(this.context, this.player)
   }
 
   // Animate the objects
@@ -197,9 +241,6 @@ class CarRace {
 
   // The first method to be called
   main() {
-    // Initialize the sprites data
-    this.initSprites();
-
     // Initialize the game data
     this.initialize();
 
