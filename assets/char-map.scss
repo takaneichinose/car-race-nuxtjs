@@ -1,0 +1,47 @@
+$char-list: (
+	"A", "B", "C", "D", "E", "F",
+	"G", "H", "I", "J", "K", "L",
+	"M", "N", "O", "P", "Q", "R",
+	"S", "T", "U", "V", "W", "X",
+	"Y", "Z", "0", "1", "2", "3",
+	"4", "5", "6", "7", "8", "9"
+);
+$char-map: (
+	"x1": (
+		"width": 5px,
+		"height": 7px,
+		"margin-left": 1px
+	),
+	"x2": (
+		"width": 10px,
+		"height": 14px,
+		"margin-left": 2px
+	),
+	"x4": (
+		"width": 20px,
+		"height": 28px,
+		"margin-left": 4px
+	)
+);
+
+.text {
+	display: flex;
+	flex-wrap: wrap;
+	@for $index from 1 through length($char-list) {
+		@each $name, $value in $char-map {
+			$width: map-get($value, "width");
+			$height: map-get($value, "height");
+			$margin-left: map-get($value, "margin-left");
+			.char-#{$name}-#{nth($char-list, $index)} {
+				background-image: url("/images/car-race-character-map-template-#{$name}.png");
+				background-position: #{$width * -($index - 1)} 0;
+				width: $width;
+				height: $height;
+				margin-left: $margin-left;
+				&:first-child {
+					margin-left: 0;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,22 @@
+.screen .screen-content.screen-Game {
+	background-image: url("/images/car-race-background.png");
+	background-position: 0 0;
+	background-repeat: repeat-y;
+	&.is-moving {
+		animation: car-move 2000ms linear infinite;
+	}
+}
+
+.car {
+	width: 40px;
+	height: 88px;
+	position: absolute;
+	top: var(--top);
+	left: var(--left);
+	&.car-player {
+		background-image: url("/images/car-race-player.png");
+	}
+	&.car-computer {
+		background-image: url("/images/car-race-computer.png");
+	}
+}

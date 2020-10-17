@@ -1,0 +1,53 @@
+@keyframes screen-animate {
+	0% {
+		background-position: -320px 100px, 320px bottom, 0 0;
+	}
+	30% {
+		background-position: -160px 100px, 320px bottom, 0 0;
+	}
+	70% {
+		background-position: -50px 100px, 320px bottom, 0 0;
+	}
+	100% {
+		background-position: 0 100px, 0 bottom, 0 0;
+	}
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes fade-out {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes blink {
+	0% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 100%;
+	}
+}
+
+@keyframes car-move {
+	0% {
+		background-position: 0 0;
+	}
+	100% {
+		background-position: 0 480px;
+	}
+}

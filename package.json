@@ -1,0 +1,29 @@
+{
+  "name": "car-race",
+  "version": "2.0.0",
+  "description": "A racing game inspired by games from the 80s",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nuxt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takaneichinose/car-race.git"
+  },
+  "author": "Takane Ichinose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/takaneichinose/car-race/issues"
+  },
+  "homepage": "https://github.com/takaneichinose/car-race#readme",
+  "dependencies": {
+    "normalize.css": "^8.0.1",
+    "nuxt": "^2.14.6"
+  },
+  "devDependencies": {
+    "@nuxt/typescript-build": "^2.0.3",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^10.0.3"
+  }
+}
