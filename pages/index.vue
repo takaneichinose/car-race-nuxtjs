@@ -36,9 +36,17 @@
 					 v-if="screen.active === enums.Screen.Game">
 				<div class="car car-player"
 				     v-bind:style="{
+							 '--width': car.width + 'px',
+							 '--height': car.height + 'px',
 							 '--top': car.top + 'px',
 							 '--left': car.left + 'px'
 						 }"></div>
+				<div class="stop-light"
+				     v-bind:style="{
+							 '--width': stopLight.width + 'px',
+							 '--height': stopLight.height + 'px'
+						 }"
+						 v-on:animationend="stoplightAnimationEnd"></div>
 			</div>
 		</transition-group>
 	</div>
@@ -67,6 +75,10 @@ export default {
 				height: Constants.CAR_HEIGHT,
 				top: Constants.CAR_TOP,
 				left: 0
+			},
+			stopLight: {
+				width: Constants.STOP_LIGHT_WIDTH,
+				height: Constants.STOP_LIGHT_HEIGHT
 			}
 		}
 	},
@@ -137,6 +149,10 @@ export default {
 
 					break;
 			}
+		},
+		stoplightAnimationEnd(evt) {
+			console.log(evt);
+			// TODO: Start game loop here. Method is in methods.ts
 		}
 	},
 	mounted() {

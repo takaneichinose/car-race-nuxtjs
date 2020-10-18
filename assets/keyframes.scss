@@ -51,3 +51,23 @@
 		background-position: 0 480px;
 	}
 }
+
+@keyframes stop-light {
+	20% {
+		background-image: url("/images/car-race-stop-light-1.png");
+		opacity: 1;
+	}
+	40% {
+		background-image: url("/images/car-race-stop-light-2.png");
+	}
+	60% {
+		background-image: url("/images/car-race-stop-light-3.png");
+	}
+	80% {
+		background-image: url("/images/car-race-stop-light-4.png");
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}

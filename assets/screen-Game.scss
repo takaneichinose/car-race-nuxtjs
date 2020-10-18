@@ -8,8 +8,8 @@
 }
 
 .car {
-	width: 40px;
-	height: 88px;
+	width: var(--width);
+	height: var(--height);
 	position: absolute;
 	top: var(--top);
 	left: var(--left);
@@ -19,4 +19,15 @@
 	&.car-computer {
 		background-image: url("/images/car-race-computer.png");
 	}
+}
+
+.stop-light {
+	background-image: url("/images/car-race-stop-light-1.png");
+	width: var(--width);
+	height: var(--height);
+	position: absolute;
+	top: calc(50% - calc(var(--height) / 2));
+	left: calc(50% - calc(var(--width) / 2));
+	opacity: 0;
+	animation: stop-light 5000ms ease-out forwards;
 }

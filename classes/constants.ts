@@ -1,13 +1,16 @@
-export const SCREEN_WIDTH = 320;
-export const SCREEN_HEIGHT = 480;
+export const SCREEN_WIDTH: number = 320;
+export const SCREEN_HEIGHT: number = 480;
 
-export const CAR_WIDTH = 40;
-export const CAR_HEIGHT = 88;
-export const CAR_TOP = 360;
+export const CAR_WIDTH: number = 40;
+export const CAR_HEIGHT: number = 88;
+export const CAR_TOP: number = 360;
 
-export const PRELOAD_WAITTIME = 1200;
+export const STOP_LIGHT_WIDTH: number = 100;
+export const STOP_LIGHT_HEIGHT: number = 176;
 
-export const ASSETS = [
+export const PRELOAD_WAITTIME: number = 1200;
+
+export const ASSETS: Array<string> = [
 	"/images/car-race-background.png",
 	"/images/car-race-character-map.png",
 	"/images/car-race-character-map-template-x1.png",
@@ -21,5 +24,8 @@ export const ASSETS = [
 	"/images/car-race-loading-text.png",
 	"/images/car-race-player.png",
 	"/images/car-race-press-space.png",
-	"/images/car-race-stop-light.png",
+	"/images/car-race-stop-light-1.png",
+	"/images/car-race-stop-light-2.png",
+	"/images/car-race-stop-light-3.png",
+	"/images/car-race-stop-light-4.png"
 ];
