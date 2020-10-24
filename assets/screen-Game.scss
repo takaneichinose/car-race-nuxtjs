@@ -1,33 +1,33 @@
 .screen .screen-content.screen-Game {
-	background-image: url("/images/car-race-background.png");
-	background-position: 0 var(--y);
-	background-repeat: repeat-y;
+  background-image: url("/images/car-race-background.png");
+  background-position: 0 var(--y);
+  background-repeat: repeat-y;
 }
 
 .car {
-	width: var(--width);
-	height: var(--height);
-	position: absolute;
-	top: var(--top);
-	left: var(--left);
-	transform-origin: center;
-	transform: rotate(var(--rotate));
-	transition: transform 275ms ease-out;
-	&.car-player {
-		background-image: url("/images/car-race-player.png");
-	}
-	&.car-computer {
-		background-image: url("/images/car-race-computer.png");
-	}
+  width: var(--width);
+  height: var(--height);
+  position: absolute;
+  top: var(--top);
+  left: var(--left);
+  transform-origin: center;
+  transform: rotate(var(--rotate));
+  transition: transform 275ms ease-out;
+  &.car-player {
+    background-image: url("/images/car-race-player.png");
+  }
+  &.car-computer {
+    background-image: url("/images/car-race-computer.png");
+  }
 }
 
 .stop-light {
-	background-image: url("/images/car-race-stop-light-1.png");
-	width: var(--width);
-	height: var(--height);
-	position: absolute;
-	top: calc(50% - calc(var(--height) / 2));
-	left: calc(50% - calc(var(--width) / 2));
-	opacity: 0;
-	animation: stop-light 5000ms ease-out forwards;
+  background-image: url("/images/car-race-stop-light-1.png");
+  width: var(--width);
+  height: var(--height);
+  position: absolute;
+  top: calc(50% - calc(var(--height) / 2));
+  left: calc(50% - calc(var(--width) / 2));
+  opacity: 0;
+  animation: stop-light 5000ms ease-out forwards;
 }

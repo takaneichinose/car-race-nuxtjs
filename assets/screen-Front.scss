@@ -1,11 +1,11 @@
 .screen .screen-content.screen-Front {
-	background-image:
-		url("/images/car-race-front-title.png"),
-		url("/images/car-race-front-design.png"),
-		url("/images/car-race-front-background.png");
-	background-position: -320px 100px, 320px bottom, 0 0;
-	animation: screen-animate 0ms linear 0ms forwards;
-	&.is-animate {
-		animation: screen-animate 500ms linear 250ms forwards;
-	}
+  background-image:
+    url("/images/car-race-front-title.png"),
+    url("/images/car-race-front-design.png"),
+    url("/images/car-race-front-background.png");
+  background-position: -320px 100px, 320px bottom, 0 0;
+  animation: screen-animate 0ms linear 0ms forwards;
+  &.is-animate {
+    animation: screen-animate 500ms linear 250ms forwards;
+  }
 }

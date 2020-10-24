@@ -1,40 +1,40 @@
 .screen .screen-content.screen-Loading {
-	background-image:
-		url("/images/car-race-front-title.png"),
-		url("/images/car-race-front-design.png"),
-		url("/images/car-race-front-background.png");
-	background-position: -320px 100px, 320px bottom, 0 0;
-	animation: screen-animate 500ms linear 250ms forwards;
+  background-image:
+    url("/images/car-race-front-title.png"),
+    url("/images/car-race-front-design.png"),
+    url("/images/car-race-front-background.png");
+  background-position: -320px 100px, 320px bottom, 0 0;
+  animation: screen-animate 500ms linear 250ms forwards;
 }
 
 .loading-bar {
-	background-color: #1f1f1f;
-	width: 280px;
-	height: 34px;
-	border: solid 4px #d2d2d2;
-	box-sizing: border-box;
-	position: absolute;
-	bottom: 60px;
-	left: 20px;
-	opacity: 0;
-	animation: fade-in 180ms ease-out 1000ms forwards;
-	&:after {
-		content: "";
-		background-color: green;
-		width: var(--loading-progress);
-		height: 100%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		transition: width 180px ease-out;
-	}
+  background-color: #1f1f1f;
+  width: 280px;
+  height: 34px;
+  border: solid 4px #d2d2d2;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 60px;
+  left: 20px;
+  opacity: 0;
+  animation: fade-in 180ms ease-out 1000ms forwards;
+  &:after {
+    content: "";
+    background-color: green;
+    width: var(--loading-progress);
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: width 180px ease-out;
+  }
 }
 
 .text-loading {
-	width: 164px;
-	position: absolute;
-	bottom: 20px;
-	left: calc(50% - 82px);
-	opacity: 0;
-	animation: fade-in 180ms ease-out 1000ms forwards;
+  width: 164px;
+  position: absolute;
+  bottom: 20px;
+  left: calc(50% - 82px);
+  opacity: 0;
+  animation: fade-in 180ms ease-out 1000ms forwards;
 }
