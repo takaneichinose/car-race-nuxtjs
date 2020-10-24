@@ -10,6 +10,17 @@ export const STOP_LIGHT_HEIGHT: number = 176;
 
 export const PRELOAD_WAITTIME: number = 1200;
 
+export const INITIAL_SPEED: number = 10;
+export const TOP_SPEED: number = 30;
+export const ACCELERATION_TIME: number = 5000;
+export const ACCELERATION: number = 2;
+export const INCREASE_DISTANCE_TIME: number = 25;
+
+export const MOVE_SPEED: number = 2;
+export const COLLISION_LEFT: number = 86;
+export const COLLISION_RIGHT: number = 194;
+export const TURN_ANGLE: number = 20;
+
 export const ASSETS: Array<string> = [
 	"/images/car-race-background.png",
 	"/images/car-race-character-map.png",

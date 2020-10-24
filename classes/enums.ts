@@ -15,3 +15,13 @@ export enum Screen {
 	Game = 3,
 	GameOver = 4
 }
+
+export enum KeyMode {
+	Up = 0,
+	Down = 1
+}
+
+export enum Direction {
+	Left = 0,
+	Right = 1
+}

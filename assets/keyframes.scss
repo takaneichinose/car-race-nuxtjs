@@ -43,15 +43,6 @@
 	}
 }
 
-@keyframes car-move {
-	0% {
-		background-position: 0 0;
-	}
-	100% {
-		background-position: 0 480px;
-	}
-}
-
 @keyframes stop-light {
 	20% {
 		background-image: url("/images/car-race-stop-light-1.png");
