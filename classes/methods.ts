@@ -8,14 +8,13 @@ let lastAcceleratedTime: number = 0;
 let lastIncreasedDistance: number = 0;
 let lastSpawnedTime: number = 0;
 let velocity: number = Constants.INITIAL_SPEED;
+let computerVelocity: number = Constants.COMPUTER_INITIAL_SPEED;
+let spawnTime: number = Constants.INITIAL_SPAWN_TIME;
 let activeKeys: Interfaces.ActiveKeys = {
   left: false,
   right: false
 };
-
-function random(min: number, max: number) {
-  return Math.round(Math.random() * (max - min)) + min;
-}
+let animationFrame: number;
 
 export function preload(vueObj: Interfaces.CarRaceData): void {
   let assets = Constants.ASSETS;
@@ -72,7 +71,13 @@ export function beginGame(vueObj: Interfaces.CarRaceData): void {
   lastIncreasedDistance = performance.now();
   lastSpawnedTime = performance.now();
 
+  spawnTime = Constants.INITIAL_SPAWN_TIME;
+
   gameLoop(vueObj);
+}
+
+function random(min: number, max: number) {
+  return Math.round(Math.random() * (max - min)) + min;
 }
 
 function loadingProcess(vueObj: Interfaces.CarRaceData): void {
@@ -125,7 +130,7 @@ function gameEvent(key: Enums.Keys, mode: Enums.KeyMode): void {
 }
 
 function gameLoop(vueObj: Interfaces.CarRaceData): void {
-  window.requestAnimationFrame(() => gameLoop(vueObj));
+  animationFrame = window.requestAnimationFrame(() => gameLoop(vueObj));
 
   update(vueObj);
 
@@ -173,7 +178,7 @@ function update(vueObj: Interfaces.CarRaceData): void {
   accelarate(vueObj);
   moveDirection(vueObj);
   spawnComputerCar(vueObj);
-  // TODO: Update compuer car position
+  moveComputerCar(vueObj);
 }
 
 function accelarate(vueObj: Interfaces.CarRaceData): void {
@@ -181,6 +186,8 @@ function accelarate(vueObj: Interfaces.CarRaceData): void {
     vueObj.distanceTraveled += velocity;
 
     lastIncreasedDistance = performance.now();
+
+    moveComputerCar(vueObj);
   }
 
   if (velocity >= Constants.TOP_SPEED) {
@@ -189,6 +196,7 @@ function accelarate(vueObj: Interfaces.CarRaceData): void {
 
   if (performance.now() - lastAcceleratedTime > Constants.ACCELERATION_TIME) {
     velocity += Constants.ACCELERATION;
+    computerVelocity += Constants.COMPUTER_ACCELERATION;
 
     lastAcceleratedTime = performance.now();
   }
@@ -210,7 +218,7 @@ function randomCarLane(): number {
 }
 
 function spawnComputerCar(vueObj: Interfaces.CarRaceData): void {
-  if (performance.now() - lastSpawnedTime >= Constants.SPAWN_TIME) {
+  if (performance.now() - lastSpawnedTime >= spawnTime) {
     vueObj.computer.cars.push({
       width: Constants.CAR_WIDTH,
       height: Constants.CAR_HEIGHT,
@@ -220,5 +228,34 @@ function spawnComputerCar(vueObj: Interfaces.CarRaceData): void {
     } as Interfaces.CarRaceCar);
 
     lastSpawnedTime = performance.now();
+
+    if (spawnTime - Constants.SPAWN_TIME_REDUCE > Constants.SPAWN_TIME_LIMIT) {
+      spawnTime -= Constants.SPAWN_TIME_REDUCE;
+    }
+  }
+}
+
+function moveComputerCar(vueObj: Interfaces.CarRaceData): void {
+  for (let i: number = 0; i < vueObj.computer.cars.length; i++) {
+    vueObj.computer.cars[i].top += computerVelocity;
+
+    calculateCollision(vueObj, i);
+
+    if (vueObj.computer.cars[i].top > Constants.SCREEN_HEIGHT) {
+      vueObj.computer.cars.splice(i, 1);
+    }
+  }
+}
+
+function calculateCollision(vueObj: Interfaces.CarRaceData, index: number): void {
+  let computer = vueObj.computer.cars[index];
+  
+  if (
+    computer.top <= vueObj.car.top + vueObj.car.height &&
+    computer.top + computer.height >= vueObj.car.top &&
+    computer.left <= vueObj.car.left + vueObj.car.width &&
+    computer.left + computer.width >= vueObj.car.left
+  ) {
+    window.cancelAnimationFrame(animationFrame);
   }
 }
