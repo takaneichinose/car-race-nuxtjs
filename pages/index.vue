@@ -35,12 +35,15 @@
            v-bind:key="screen.enum.Game"
            v-if="screen.active === screen.enum.Game">
         <div class="car car-player"
+             v-bind:class="{'car-crash': car.crashed}"
              v-bind:style="{
                '--width': car.width + 'px',
                '--height': car.height + 'px',
                '--top': car.top + 'px',
                '--left': car.left + 'px',
-               '--rotate': car.rotate + 'deg'
+               '--rotate': car.rotate + 'deg',
+               '--crash-width': crash.width + 'px',
+               '--crash-height': crash.height + 'px',
              }"></div>
         <div class="car car-computer"
              v-for="(computer, index) in computer.cars"
@@ -90,7 +93,8 @@ export default Vue.extend({
         height: Constants.CAR_HEIGHT,
         top: Constants.CAR_TOP,
         left: 0,
-        rotate: 0
+        rotate: 0,
+        crashed: false
       } as Interfaces.CarRaceCar,
       computer: {
         cars: new Array<Interfaces.CarRaceCar>()
@@ -99,6 +103,10 @@ export default Vue.extend({
         width: Constants.STOP_LIGHT_WIDTH,
         height: Constants.STOP_LIGHT_HEIGHT
       } as Interfaces.CarRaceStopLight,
+      crash: {
+        width: Constants.CAR_CRASH_WIDTH,
+        height: Constants.CAR_CRASH_HEIGHT
+      } as Interfaces.CarRaceCrash,
       distanceTraveled: 0
     } as Interfaces.CarRaceData
   },

@@ -15,7 +15,8 @@ export interface CarRaceCar {
   height: number,
   top: number,
   left: number,
-  rotate: number
+  rotate: number,
+  crashed: boolean
 }
 
 export interface CarRaceStopLight {
@@ -27,6 +28,11 @@ export interface CarRaceComputer {
   cars: Array<CarRaceCar>
 }
 
+export interface CarRaceCrash {
+  width: number,
+  height: number
+}
+
 export interface CarRaceData {
   assetsCount: number,
   assetsLoaded: number,
@@ -35,6 +41,7 @@ export interface CarRaceData {
   car: CarRaceCar,
   computer: CarRaceComputer,
   stopLight: CarRaceStopLight,
+  crash: CarRaceCrash,
   distanceTraveled: number
 }
 
@@ -50,6 +57,7 @@ export interface CarRace {
   car: CarRaceCar,
   computer: CarRaceComputer,
   stopLight: CarRaceStopLight,
+  crash: CarRaceCrash,
   distanceTraveled: number,
   stoplightAnimationEnd: void
 }

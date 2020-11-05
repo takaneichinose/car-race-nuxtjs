@@ -62,3 +62,15 @@
     opacity: 0;
   }
 }
+
+@keyframes car-crash {
+  0% {
+    background-position: 0;
+  }
+  33.33333% {
+    background-position: -88px;
+  }
+  66.66667% {
+    background-position: -176px;
+  }
+}

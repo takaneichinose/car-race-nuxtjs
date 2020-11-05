@@ -15,6 +15,16 @@
   transition: transform 275ms ease-out;
   &.car-player {
     background-image: url("/images/car-race-player.png");
+    &.car-crash:after {
+      content: "";
+      background-image: url("/images/car-race-crash.png");
+      width: var(--crash-width);
+      height: var(--crash-height);
+      position: absolute;
+      top: 0;
+      left: -22px;
+      animation: car-crash 600ms steps(1, end) infinite;
+    }
   }
   &.car-computer {
     background-image: url("/images/car-race-computer.png");

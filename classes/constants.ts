@@ -34,6 +34,9 @@ export const COMPUTER_INCREASE_DISTANCE: number = 50;
 export const COMPUTER_INITIAL_SPEED: number = 2;
 export const COMPUTER_ACCELERATION: number = 1;
 
+export const CAR_CRASH_WIDTH: number = 88;
+export const CAR_CRASH_HEIGHT: number = 88;
+
 export const ASSETS: Array<string> = [
   "/images/car-race-background.png",
   "/images/car-race-character-map.png",
@@ -51,5 +54,6 @@ export const ASSETS: Array<string> = [
   "/images/car-race-stop-light-1.png",
   "/images/car-race-stop-light-2.png",
   "/images/car-race-stop-light-3.png",
-  "/images/car-race-stop-light-4.png"
+  "/images/car-race-stop-light-4.png",
+  "/images/car-race-crash.png"
 ];

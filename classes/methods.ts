@@ -45,6 +45,7 @@ export function initialize(vueObj: Interfaces.CarRaceData): void {
 
   vueObj.car.left = (Constants.SCREEN_WIDTH / 2) - (Constants.CAR_WIDTH / 2);
   vueObj.car.rotate = 0;
+  vueObj.car.crashed = false;
   vueObj.computer.cars = new Array<Interfaces.CarRaceCar>();
   vueObj.distanceTraveled = 0;
 }
@@ -257,5 +258,7 @@ function calculateCollision(vueObj: Interfaces.CarRaceData, index: number): void
     computer.left + computer.width >= vueObj.car.left
   ) {
     window.cancelAnimationFrame(animationFrame);
+
+    vueObj.car.crashed = true;
   }
 }
