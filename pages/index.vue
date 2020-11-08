@@ -4,6 +4,16 @@
          '--width': screen.width + 'px',
          '--height': screen.height + 'px'
        }">
+    <audio v-for="(audio, i) in audios"
+           v-bind:src="audio"
+           v-bind:key="i"
+           v-bind:ref="
+             'audio-' +
+             audio.substring(
+               audio.lastIndexOf('/') + 1,
+               audio.lastIndexOf('.')
+             )">
+    </audio>
     <transition-group tag="div" name="fade">
       <div class="screen-content screen-Loading"
            v-bind:key="screen.enum.Loading"
@@ -34,6 +44,16 @@
            }"
            v-bind:key="screen.enum.Game"
            v-if="screen.active === screen.enum.Game">
+        <div class="car car-computer"
+             v-for="(computer, index) in computer.cars"
+             v-bind:key="index"
+             v-bind:style="{
+               '--width': computer.width + 'px',
+               '--height': computer.height + 'px',
+               '--top': computer.top + 'px',
+               '--left': computer.left + 'px',
+               '--rotate': computer.rotate + 'deg'
+             }"></div>
         <div class="car car-player"
              v-bind:class="{'car-crash': car.crashed}"
              v-bind:style="{
@@ -45,16 +65,6 @@
                '--crash-width': crash.width + 'px',
                '--crash-height': crash.height + 'px',
              }"></div>
-        <div class="car car-computer"
-             v-for="(computer, index) in computer.cars"
-             v-bind:key="index"
-             v-bind:style="{
-               '--width': computer.width + 'px',
-               '--height': computer.height + 'px',
-               '--top': computer.top + 'px',
-               '--left': computer.left + 'px',
-               '--rotate': computer.rotate + 'deg'
-             }"></div>          
         <div class="stop-light"
              v-bind:style="{
                '--width': stopLight.width + 'px',
@@ -107,29 +117,17 @@ export default Vue.extend({
         width: Constants.CAR_CRASH_WIDTH,
         height: Constants.CAR_CRASH_HEIGHT
       } as Interfaces.CarRaceCrash,
+      audios: new Array<String>(),
       distanceTraveled: 0
     } as Interfaces.CarRaceData
   },
   methods: {
     stoplightAnimationEnd(evt: AnimationEvent): void {
-      let self: any = this;
-      
-      Methods.beginGame(self);
+      Methods.beginGame(this);
     }
   },
   mounted() {
-    let self: any = this;
-
-    Methods.preload(self);
-    Methods.initialize(self);
-
-    window.addEventListener("keydown", function(evt: KeyboardEvent) {
-      Methods.events(self, evt.keyCode, Enums.KeyMode.Down);
-    });
-
-    window.addEventListener("keyup", function(evt: KeyboardEvent) {
-      Methods.events(self, evt.keyCode, Enums.KeyMode.Up);
-    });
+    Methods.preload(this);
   }
 });
 </script>

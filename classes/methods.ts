@@ -23,11 +23,26 @@ export function preload(vueObj: Interfaces.CarRaceData): void {
 
   setTimeout(() => {
     for (let i = 0; i < vueObj.assetsCount; i++) {
-      let img = new Image();
+      let asset = assets[i];
+      let elm: HTMLImageElement | HTMLAudioElement;
 
-      img.src = assets[i];
-      img.onload = function(evt) {
-        loadingProcess(vueObj);
+      if (asset.substring(1, asset.indexOf("/", 1)) === "images") {
+        elm = new Image();
+
+        elm.src = asset;
+        elm.onload = function(evt) {
+          loadingProcess(vueObj);
+        }
+      }
+      else if (asset.substring(1, asset.indexOf("/", 1)) === "audios") {
+        elm = new Audio();
+
+        elm.src = asset;
+        elm.oncanplaythrough = function(evt) {
+          loadingProcess(vueObj);
+        }
+
+        vueObj.audios.push(asset);
       }
     }
   }, Constants.PRELOAD_WAITTIME);
@@ -74,6 +89,8 @@ export function beginGame(vueObj: Interfaces.CarRaceData): void {
 
   spawnTime = Constants.INITIAL_SPAWN_TIME;
 
+  vueObj.$refs["audio-accelerate"][0].play();
+
   gameLoop(vueObj);
 }
 
@@ -89,7 +106,21 @@ function loadingProcess(vueObj: Interfaces.CarRaceData): void {
   if (vueObj.loadingProgress >= 100) {
     // HACK: To be able to see "100% loaded status"
     setTimeout(function() {
+      initialize(vueObj);
+
       setActive(vueObj, Enums.Screen.Front);
+
+      window.addEventListener("keydown", function(evt: KeyboardEvent) {
+        events(vueObj, evt.keyCode, Enums.KeyMode.Down);
+      });
+  
+      window.addEventListener("keyup", function(evt: KeyboardEvent) {
+        events(vueObj, evt.keyCode, Enums.KeyMode.Up);
+      });
+
+      vueObj.$refs["audio-accelerate"][0].addEventListener("ended", function() {
+        console.log("pasok");
+      });
     }, 1);
   }
 }
@@ -107,6 +138,8 @@ function frontEvent(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: Enums
 
 function instructionsEvent(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: Enums.KeyMode): void {
   if (key === Enums.Keys.Space && mode === Enums.KeyMode.Down) {
+    vueObj.$refs["audio-start"][0].play();
+
     setActive(vueObj, Enums.Screen.Game);
   }
 }

@@ -55,5 +55,10 @@ export const ASSETS: Array<string> = [
   "/images/car-race-stop-light-2.png",
   "/images/car-race-stop-light-3.png",
   "/images/car-race-stop-light-4.png",
-  "/images/car-race-crash.png"
+  "/images/car-race-crash.png",
+  "/audios/accelerate.wav",
+  "/audios/crashed.wav",
+  "/audios/drive.wav",
+  "/audios/overtake.wav",
+  "/audios/start.wav"
 ];
