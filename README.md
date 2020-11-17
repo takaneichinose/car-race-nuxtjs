@@ -6,7 +6,6 @@ The concept of the game is similar, the score increases while your distance incr
 
 # This game is still in development
 
-<!--
 ## About the game
 
 You are going too fast in the highway (Be careful not to be caught). Just dodge all the white cars.
@@ -63,5 +62,3 @@ npm start
 Access the game by opening [this](http://localhost:3000) link on your browser: ``` http://localhost:3000 ```
 
 After compiling, you're ready to go, and enjoy the game!
-
--->
