@@ -4,8 +4,6 @@ Just a simple endless run car race game; inspired by a game in a brick game way 
 
 The concept of the game is similar, the score increases while your distance increases. The difference is, in that game, you must select the speed of the game from the beginning, while in this game, the speed increases over the time (I set it to every 15 seconds).
 
-# This game is still in development
-
 ## About the game
 
 You are going too fast in the highway (Be careful not to be caught). Just dodge all the white cars.
