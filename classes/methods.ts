@@ -7,6 +7,7 @@ import * as Interfaces from "../classes/interfaces";
 let lastAcceleratedTime: number = 0;
 let lastIncreasedDistance: number = 0;
 let lastSpawnedTime: number = 0;
+let lastDriveSoundUpdate: number = 0;
 let velocity: number = Constants.INITIAL_SPEED;
 let computerVelocity: number = Constants.COMPUTER_INITIAL_SPEED;
 let spawnTime: number = Constants.INITIAL_SPAWN_TIME;
@@ -15,19 +16,28 @@ let activeKeys: Interfaces.ActiveKeys = {
   right: false
 };
 let animationFrame: number;
+let audioTracks: Interfaces.AudioTracks;
 
 export function preload(vueObj: Interfaces.CarRaceData): void {
   let assets = Constants.ASSETS;
 
   vueObj.assetsCount = assets.length;
 
+  audioTracks = {
+    accelerate: new Audio(),
+    crashed: new Audio(),
+    drive: new Audio(),
+    overtake: new Audio(),
+    select: new Audio(),
+    start: new Audio()
+  };
+
   setTimeout(() => {
     for (let i = 0; i < vueObj.assetsCount; i++) {
       let asset = assets[i];
-      let elm: HTMLImageElement | HTMLAudioElement;
 
       if (asset.substring(1, asset.indexOf("/", 1)) === "images") {
-        elm = new Image();
+        let elm: HTMLImageElement = new Image();
 
         elm.src = asset;
         elm.onload = function(evt) {
@@ -35,14 +45,13 @@ export function preload(vueObj: Interfaces.CarRaceData): void {
         }
       }
       else if (asset.substring(1, asset.indexOf("/", 1)) === "audios") {
-        elm = new Audio();
-
-        elm.src = asset;
+        let elm: HTMLAudioElement = new Audio(asset);
+        
         elm.oncanplaythrough = function(evt) {
+          vueObj.audios.push(asset);
+          
           loadingProcess(vueObj);
         }
-
-        vueObj.audios.push(asset);
       }
     }
   }, Constants.PRELOAD_WAITTIME);
@@ -69,15 +78,15 @@ export function events(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: En
   switch (vueObj.screen.active) {
     case Enums.Screen.Front:
       frontEvent(vueObj, key, mode);
-
       return;
     case Enums.Screen.Instructions:
       instructionsEvent(vueObj, key, mode);
-
       return;
     case Enums.Screen.Game:
       gameEvent(key, mode);
-
+      return;
+    case Enums.Screen.GameOver:
+      gameOverEvent(vueObj, key, mode);
       return;
   }
 }
@@ -86,10 +95,15 @@ export function beginGame(vueObj: Interfaces.CarRaceData): void {
   lastAcceleratedTime = performance.now();
   lastIncreasedDistance = performance.now();
   lastSpawnedTime = performance.now();
+  lastDriveSoundUpdate = performance.now();
 
+  velocity = Constants.INITIAL_SPEED;
+  computerVelocity = Constants.COMPUTER_INITIAL_SPEED;
   spawnTime = Constants.INITIAL_SPAWN_TIME;
 
-  vueObj.$refs["audio-accelerate"][0].play();
+  audioTracks.accelerate.play();
+  
+  carDriveAudio(vueObj);
 
   gameLoop(vueObj);
 }
@@ -118,9 +132,29 @@ function loadingProcess(vueObj: Interfaces.CarRaceData): void {
         events(vueObj, evt.keyCode, Enums.KeyMode.Up);
       });
 
-      vueObj.$refs["audio-accelerate"][0].addEventListener("ended", function() {
-        console.log("pasok");
-      });
+      for (let audio of vueObj.audios) {
+        let audioName: string = audio.substring(
+          audio.lastIndexOf('/') + 1,
+          audio.lastIndexOf('.')
+        );
+  
+        if (
+          audioName === "accelerate" ||
+          audioName === "crashed" ||
+          audioName === "drive" ||
+          audioName === "overtake" ||
+          audioName === "select" ||
+          audioName === "start"
+        ) {
+          audioTracks[audioName] = vueObj.$refs["audio-" + audioName][0];
+        }
+
+        if (audioName === "crashed") {
+          audioTracks.crashed.addEventListener("ended", function() {
+            setActive(vueObj, Enums.Screen.GameOver);
+          });
+        }
+      }
     }, 1);
   }
 }
@@ -132,15 +166,19 @@ function setActive(vueObj: Interfaces.CarRaceData, active: Enums.Screen): void {
 
 function frontEvent(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: Enums.KeyMode): void {
   if (key === Enums.Keys.Space && mode === Enums.KeyMode.Down) {
+    audioTracks.select.play();
+
     setActive(vueObj, Enums.Screen.Instructions);
   }
 }
 
 function instructionsEvent(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: Enums.KeyMode): void {
   if (key === Enums.Keys.Space && mode === Enums.KeyMode.Down) {
-    vueObj.$refs["audio-start"][0].play();
+    audioTracks.select.play();
 
     setActive(vueObj, Enums.Screen.Game);
+
+    audioTracks.start.play();
   }
 }
 
@@ -167,6 +205,7 @@ function gameLoop(vueObj: Interfaces.CarRaceData): void {
   animationFrame = window.requestAnimationFrame(() => gameLoop(vueObj));
 
   update(vueObj);
+  updateAudio();
 
   // Supposed to be, I have rendering logic here.
   // But rendering is already done by Vue template,
@@ -209,13 +248,13 @@ function moveDirection(vueObj: Interfaces.CarRaceData): void {
 function update(vueObj: Interfaces.CarRaceData): void {
   // console.log(vueObj.distanceTraveled);
 
-  accelarate(vueObj);
+  accelerate(vueObj);
   moveDirection(vueObj);
   spawnComputerCar(vueObj);
   moveComputerCar(vueObj);
 }
 
-function accelarate(vueObj: Interfaces.CarRaceData): void {
+function accelerate(vueObj: Interfaces.CarRaceData): void {
   if (performance.now() - lastIncreasedDistance > Constants.INCREASE_DISTANCE_TIME) {
     vueObj.distanceTraveled += velocity;
 
@@ -258,7 +297,8 @@ function spawnComputerCar(vueObj: Interfaces.CarRaceData): void {
       height: Constants.CAR_HEIGHT,
       top: -Constants.CAR_HEIGHT,
       left: randomCarLane(),
-      rotate: 0
+      rotate: 0,
+      overtake: false
     } as Interfaces.CarRaceCar);
 
     lastSpawnedTime = performance.now();
@@ -283,6 +323,19 @@ function moveComputerCar(vueObj: Interfaces.CarRaceData): void {
 
 function calculateCollision(vueObj: Interfaces.CarRaceData, index: number): void {
   let computer = vueObj.computer.cars[index];
+
+  if (computer.top + computer.height >= vueObj.car.top && computer.overtake === false) {
+    vueObj.computer.cars[index].overtake = true;
+    
+    try {
+      audioTracks.overtake.currentTime = 0;
+    
+      audioTracks.overtake.play();
+    }
+    catch (ex) {
+      console.log("Error:", ex);
+    }
+  }
   
   if (
     computer.top <= vueObj.car.top + vueObj.car.height &&
@@ -292,6 +345,68 @@ function calculateCollision(vueObj: Interfaces.CarRaceData, index: number): void
   ) {
     window.cancelAnimationFrame(animationFrame);
 
-    vueObj.car.crashed = true;
+    crashAudio(vueObj);
   }
+}
+
+function carDriveAudio(vueObj: Interfaces.CarRaceData): void {
+  if (audioTracks.drive.paused === true) {
+    setTimeout(function() {
+      try {
+        audioTracks.drive.play();
+      }
+      catch (ex) {
+        console.log("Error:", ex);
+      }
+
+      carDriveAudio(vueObj);
+    }, 1980);
+  }
+}
+
+function updateAudio(): void {
+  if (performance.now() - lastDriveSoundUpdate >= Constants.CAR_DRIVE_AUDIO_REFRESH) {
+    audioTracks.drive.currentTime = 0;
+    
+    lastDriveSoundUpdate = performance.now();
+  }
+}
+
+function crashAudio(vueObj: Interfaces.CarRaceData): void {
+  try {
+    vueObj.car.crashed = true;
+
+    audioTracks.crashed.play();
+  }
+  catch (ex) {
+    console.log("Error:", ex);
+  }
+
+  try {
+    audioTracks.drive.currentTime = 0;
+    audioTracks.drive.pause();
+  }
+  catch (ex) {
+    console.log("Error:", ex);
+  }
+
+  try {
+    audioTracks.overtake.currentTime = 0;
+    audioTracks.overtake.pause();
+  }
+  catch (ex) {
+    console.log("Error:", ex);
+  }
+}
+
+function gameOverEvent(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: Enums.KeyMode): void {
+  try {
+    audioTracks.crashed.currentTime = 0;
+    audioTracks.crashed.pause();
+  }
+  catch (ex) {
+    console.log("Error:", ex);
+  }
+
+  initialize(vueObj);
 }

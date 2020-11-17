@@ -65,12 +65,62 @@
                '--crash-width': crash.width + 'px',
                '--crash-height': crash.height + 'px',
              }"></div>
+        <div class="score-board"
+             v-bind:style="{
+               '--width': scoreBoard.width + 'px',
+               '--height': scoreBoard.height + 'px',
+             }">
+          <div class="text text-score">
+            <div v-for="(c, i) in Math.floor(distanceTraveled * scoreFactor).toString().split('')"
+                v-bind:key="i"
+                v-bind:class="'char-x2-' + c"></div>
+            <div class="char-x2-M"></div>
+          </div>
+        </div>
         <div class="stop-light"
              v-bind:style="{
                '--width': stopLight.width + 'px',
                '--height': stopLight.height + 'px'
              }"
              v-on:animationend="stoplightAnimationEnd"></div>
+      </div>
+      <div class="screen-content screen-GameOver"
+           v-bind:key="screen.enum.GameOver"
+           v-if="screen.active === screen.enum.GameOver">
+        <div class="text text-gameover" style="--top: 220px;">
+          <div v-for="(c, i) in 'YOU'.split('')"
+               v-bind:key="'score-7-' + i"
+               v-bind:class="'char-border-x2-' + c"></div>
+          <div class="spacer-border-x2"></div>
+          <div v-for="(c, i) in 'COLLIDED'.split('')"
+               v-bind:key="'score-6-' + i"
+               v-bind:class="'char-border-x2-' + c"></div>
+          <div class="spacer-border-x2"></div>
+          <div v-for="(c, i) in 'WITH'.split('')"
+               v-bind:key="'score-5-' + i"
+               v-bind:class="'char-border-x2-' + c"></div>
+        </div>
+        <div class="text text-gameover" style="--top: 250px;">
+          <div v-for="(c, i) in 'OTHER'.split('')"
+               v-bind:key="'score-4-' + i"
+               v-bind:class="'char-border-x2-' + c"></div>
+          <div class="spacer-border-x2"></div>
+          <div v-for="(c, i) in 'VEHICLE'.split('')"
+               v-bind:key="'score-3-' + i"
+               v-bind:class="'char-border-x2-' + c"></div>
+          <div class="spacer-border-x2"></div>
+        </div>
+        <div class="text text-gameover" style="--top: 280px;">
+          <div v-for="(c, i) in 'DISTANCE'.split('')"
+               v-bind:key="'score-2-' + i"
+               v-bind:class="'char-border-x2-' + c"></div>
+          <div class="spacer-border-x2"></div>
+          <div v-for="(c, i) in Math.floor(distanceTraveled * scoreFactor).toString().split('')"
+               v-bind:key="'score-1-' + i"
+               v-bind:class="'char-border-x2-' + c"></div>
+          <div class="char-border-x2-M"></div>
+        </div>
+        <div class="press-space"></div>
       </div>
     </transition-group>
   </div>
@@ -104,7 +154,8 @@ export default Vue.extend({
         top: Constants.CAR_TOP,
         left: 0,
         rotate: 0,
-        crashed: false
+        crashed: false,
+        overtake: false
       } as Interfaces.CarRaceCar,
       computer: {
         cars: new Array<Interfaces.CarRaceCar>()
@@ -113,12 +164,17 @@ export default Vue.extend({
         width: Constants.STOP_LIGHT_WIDTH,
         height: Constants.STOP_LIGHT_HEIGHT
       } as Interfaces.CarRaceStopLight,
+      scoreBoard: {
+        width: Constants.SCORE_BOARD_WIDTH,
+        height: Constants.SCORE_BOARD_HEIGHT
+      } as Interfaces.CarRaceScoreBoard,
       crash: {
         width: Constants.CAR_CRASH_WIDTH,
         height: Constants.CAR_CRASH_HEIGHT
       } as Interfaces.CarRaceCrash,
       audios: new Array<String>(),
-      distanceTraveled: 0
+      distanceTraveled: 0,
+      scoreFactor: Constants.SCORE_FACTOR
     } as Interfaces.CarRaceData
   },
   methods: {
@@ -140,4 +196,5 @@ export default Vue.extend({
   @import "/assets/screen-Front.scss";
   @import "/assets/screen-Instructions.scss";
   @import "/assets/screen-Game.scss";
+  @import "/assets/screen-GameOver.scss";
 </style>

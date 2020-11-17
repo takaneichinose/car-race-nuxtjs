@@ -21,6 +21,11 @@ $char-map: (
     "width": 20px,
     "height": 28px,
     "margin-left": 4px
+  ),
+  "border-x2": (
+    "width": 12px,
+    "height": 16px,
+    "margin-left": 2px
   )
 );
 
@@ -43,5 +48,14 @@ $char-map: (
         }
       }
     }
+  }
+}
+
+@each $name, $value in $char-map {
+  $width: map-get($value, "width");
+  $height: map-get($value, "height");
+  .spacer-#{$name} {
+    width: $width;
+    height: $height;
   }
 }

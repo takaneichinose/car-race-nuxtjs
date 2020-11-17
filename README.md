@@ -16,6 +16,8 @@ I developed this game with VueJS, using NuxtJS Framework.
 
 I drew all of the images using [Paint.NET](https://www.getpaint.net/), and [GIMP](https://www.gimp.org/).
 
+I used [LMMS](https://lmms.io/) (Linux Multi Media Studio) to create all of the audios.
+
 ## Controls
 
 - **Left arrow key** Move left
@@ -57,6 +59,8 @@ To run the server on your local device, just execute the command line below, and
 ```
 npm start
 ```
+
+Access the game by opening [this](http://localhost:3000) link on your browser: ``` http://localhost:3000 ```
 
 After compiling, you're ready to go, and enjoy the game!
 

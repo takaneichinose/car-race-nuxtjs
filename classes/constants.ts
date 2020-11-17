@@ -10,6 +10,9 @@ export const CAR_TOP: number = 360;
 export const STOP_LIGHT_WIDTH: number = 100;
 export const STOP_LIGHT_HEIGHT: number = 176;
 
+export const SCORE_BOARD_WIDTH: number = 320;
+export const SCORE_BOARD_HEIGHT: number = 22;
+
 export const PRELOAD_WAITTIME: number = 1200;
 
 export const INITIAL_SPEED: number = 10;
@@ -37,6 +40,10 @@ export const COMPUTER_ACCELERATION: number = 1;
 export const CAR_CRASH_WIDTH: number = 88;
 export const CAR_CRASH_HEIGHT: number = 88;
 
+export const CAR_DRIVE_AUDIO_REFRESH: number = 1200;
+
+export const SCORE_FACTOR: number = 0.075;
+
 export const ASSETS: Array<string> = [
   "/images/car-race-background.png",
   "/images/car-race-character-map.png",
@@ -56,9 +63,12 @@ export const ASSETS: Array<string> = [
   "/images/car-race-stop-light-3.png",
   "/images/car-race-stop-light-4.png",
   "/images/car-race-crash.png",
+  "/images/car-race-score-board.png",
+  "/images/car-race-press-space-dark.png",
   "/audios/accelerate.wav",
   "/audios/crashed.wav",
   "/audios/drive.wav",
   "/audios/overtake.wav",
-  "/audios/start.wav"
+  "/audios/start.wav",
+  "/audios/select.wav"
 ];

@@ -16,10 +16,16 @@ export interface CarRaceCar {
   top: number,
   left: number,
   rotate: number,
-  crashed: boolean
+  crashed: boolean,
+  overtake: boolean
 }
 
 export interface CarRaceStopLight {
+  width: number,
+  height: number
+}
+
+export interface CarRaceScoreBoard {
   width: number,
   height: number
 }
@@ -41,10 +47,13 @@ export interface CarRaceData {
   car: CarRaceCar,
   computer: CarRaceComputer,
   stopLight: CarRaceStopLight,
+  scoreBoard: CarRaceScoreBoard,
   crash: CarRaceCrash,
   distanceTraveled: number,
+  images: Array<String>,
   audios: Array<String>,
-  $refs: any
+  $refs: any,
+  scoreFactor: number
 }
 
 export interface CarRaceMethods {
@@ -59,14 +68,26 @@ export interface CarRace {
   car: CarRaceCar,
   computer: CarRaceComputer,
   stopLight: CarRaceStopLight,
+  scoreBoard: CarRaceScoreBoard,
   crash: CarRaceCrash,
   distanceTraveled: number,
+  images: Array<String>,
   audios: Array<String>,
   $refs: any,
+  scoreFactor: number,
   stoplightAnimationEnd: void
 }
 
 export interface ActiveKeys {
   left: boolean,
   right: boolean
+}
+
+export interface AudioTracks {
+  accelerate: HTMLAudioElement,
+  crashed: HTMLAudioElement,
+  drive: HTMLAudioElement,
+  overtake: HTMLAudioElement,
+  select: HTMLAudioElement,
+  start: HTMLAudioElement
 }

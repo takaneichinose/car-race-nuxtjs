@@ -41,3 +41,17 @@
   opacity: 0;
   animation: stop-light 5000ms ease-out forwards;
 }
+
+.score-board {
+  background-image: url("/images/car-race-score-board.png");
+  width: var(--width);
+  height: var(--height);
+  position: absolute;
+  top: 0;
+  left: 0;
+  .text-score {
+    position: absolute;
+    top: 4px;
+    left: 118px;
+  }
+}

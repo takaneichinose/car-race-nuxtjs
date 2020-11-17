@@ -1,0 +1,12 @@
+.screen .screen-content.screen-GameOver {
+  background-image: url("/images/car-race-game-over.png");
+  background-position: 0 0;
+}
+
+.text-gameover {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  top: var(--top);
+}
