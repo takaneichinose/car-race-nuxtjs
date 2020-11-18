@@ -8,8 +8,9 @@ export default {
         options: {
           name: "[path][name].[ext]"
         }
-      })
+      });
     }
   },
+  ssr: false,
   target: "static"
 };
