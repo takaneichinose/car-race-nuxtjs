@@ -60,3 +60,11 @@ npm start
 Access the game by opening [this](http://localhost:3000) link on your browser: ``` http://localhost:3000 ```
 
 After compiling, you're ready to go, and enjoy the game!
+
+### Playable demo
+
+I distributed this game, and put it on my [Github Pages](https://takaneichinose.github.io/) link.
+
+I might change this link in future, but I'm going to put it here for now.
+
+URL: [https://takaneichinose.github.io/](https://takaneichinose.github.io/)
