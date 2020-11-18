@@ -61,7 +61,7 @@ Access the game by opening [this](http://localhost:3000) link on your browser: `
 
 After compiling, you're ready to go, and enjoy the game!
 
-### Playable demo
+## Playable demo
 
 I distributed this game, and put it on my [Github Pages](https://takaneichinose.github.io/) link.
 
