@@ -13,8 +13,6 @@ export const STOP_LIGHT_HEIGHT: number = 176;
 export const SCORE_BOARD_WIDTH: number = 320;
 export const SCORE_BOARD_HEIGHT: number = 22;
 
-export const PRELOAD_WAITTIME: number = 1200;
-
 export const INITIAL_SPEED: number = 10;
 export const TOP_SPEED: number = 30;
 export const ACCELERATION_TIME: number = 5000;
@@ -45,30 +43,30 @@ export const CAR_DRIVE_AUDIO_REFRESH: number = 1200;
 export const SCORE_FACTOR: number = 0.075;
 
 export const ASSETS: Array<string> = [
-  "/images/car-race-background.png",
-  "/images/car-race-character-map.png",
-  "/images/car-race-character-map-template-x1.png",
-  "/images/car-race-character-map-template-x2.png",
-  "/images/car-race-character-map-template-x4.png",
-  "/images/car-race-computer.png",
-  "/images/car-race-front-background.png",
-  "/images/car-race-front-design.png",
-  "/images/car-race-front-title.png",
-  "/images/car-race-instructions.png",
-  "/images/car-race-loading-text.png",
-  "/images/car-race-player.png",
-  "/images/car-race-press-space.png",
-  "/images/car-race-stop-light-1.png",
-  "/images/car-race-stop-light-2.png",
-  "/images/car-race-stop-light-3.png",
-  "/images/car-race-stop-light-4.png",
-  "/images/car-race-crash.png",
-  "/images/car-race-score-board.png",
-  "/images/car-race-press-space-dark.png",
-  "/audios/accelerate.wav",
-  "/audios/crashed.wav",
-  "/audios/drive.wav",
-  "/audios/overtake.wav",
-  "/audios/start.wav",
-  "/audios/select.wav"
+  "~/assets/images/car-race-background.png",
+  "~/assets/images/car-race-character-map.png",
+  "~/assets/images/car-race-character-map-template-x1.png",
+  "~/assets/images/car-race-character-map-template-x2.png",
+  "~/assets/images/car-race-character-map-template-x4.png",
+  "~/assets/images/car-race-computer.png",
+  "~/assets/images/car-race-front-background.png",
+  "~/assets/images/car-race-front-design.png",
+  "~/assets/images/car-race-front-title.png",
+  "~/assets/images/car-race-instructions.png",
+  "~/assets/images/car-race-loading-text.png",
+  "~/assets/images/car-race-player.png",
+  "~/assets/images/car-race-press-space.png",
+  "~/assets/images/car-race-stop-light-1.png",
+  "~/assets/images/car-race-stop-light-2.png",
+  "~/assets/images/car-race-stop-light-3.png",
+  "~/assets/images/car-race-stop-light-4.png",
+  "~/assets/images/car-race-crash.png",
+  "~/assets/images/car-race-score-board.png",
+  "~/assets/images/car-race-press-space-dark.png",
+  "~/assets/audios/accelerate.wav",
+  "~/assets/audios/crashed.wav",
+  "~/assets/audios/drive.wav",
+  "~/assets/audios/overtake.wav",
+  "~/assets/audios/start.wav",
+  "~/assets/audios/select.wav"
 ];

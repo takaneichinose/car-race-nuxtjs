@@ -32,29 +32,30 @@ export function preload(vueObj: Interfaces.CarRaceData): void {
     start: new Audio()
   };
 
-  setTimeout(() => {
-    for (let i = 0; i < vueObj.assetsCount; i++) {
-      let asset = assets[i];
+  for (let i = 0; i < vueObj.assetsCount; i++) {
+    let asset: string = assets[i];
+    let assetName: string = asset.substring(asset.lastIndexOf("/") + 1);
 
-      if (asset.substring(1, asset.indexOf("/", 1)) === "images") {
-        let elm: HTMLImageElement = new Image();
+    if (asset.indexOf("~/assets/images") >= 0) {
+      let elm: HTMLImageElement = new Image();
 
-        elm.src = asset;
-        elm.onload = function(evt) {
-          loadingProcess(vueObj);
-        }
-      }
-      else if (asset.substring(1, asset.indexOf("/", 1)) === "audios") {
-        let elm: HTMLAudioElement = new Audio(asset);
-        
-        elm.oncanplaythrough = function(evt) {
-          vueObj.audios.push(asset);
-          
-          loadingProcess(vueObj);
-        }
+      elm.src = require(`~/assets/images/${assetName}`);
+      elm.onload = function(evt) {
+        vueObj.images.push(assetName);
+
+        loadingProcess(vueObj);
       }
     }
-  }, Constants.PRELOAD_WAITTIME);
+    else if (asset.indexOf("~/assets/audios") >= 0) {
+      let elm: HTMLAudioElement = new Audio(require(`~/assets/audios/${assetName}`));
+      
+      elm.oncanplaythrough = function(evt) {
+        vueObj.audios.push(assetName);
+        
+        loadingProcess(vueObj);
+      }
+    }
+  }
 }
 
 export function initialize(vueObj: Interfaces.CarRaceData): void {
@@ -166,6 +167,7 @@ function setActive(vueObj: Interfaces.CarRaceData, active: Enums.Screen): void {
 
 function frontEvent(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: Enums.KeyMode): void {
   if (key === Enums.Keys.Space && mode === Enums.KeyMode.Down) {
+    audioTracks.select.currentTime = 0;
     audioTracks.select.play();
 
     setActive(vueObj, Enums.Screen.Instructions);
@@ -174,6 +176,7 @@ function frontEvent(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: Enums
 
 function instructionsEvent(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: Enums.KeyMode): void {
   if (key === Enums.Keys.Space && mode === Enums.KeyMode.Down) {
+    audioTracks.select.currentTime = 0;
     audioTracks.select.play();
 
     setActive(vueObj, Enums.Screen.Game);
@@ -246,8 +249,6 @@ function moveDirection(vueObj: Interfaces.CarRaceData): void {
 }
 
 function update(vueObj: Interfaces.CarRaceData): void {
-  // console.log(vueObj.distanceTraveled);
-
   accelerate(vueObj);
   moveDirection(vueObj);
   spawnComputerCar(vueObj);
@@ -407,6 +408,9 @@ function gameOverEvent(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: En
   catch (ex) {
     console.log("Error:", ex);
   }
+
+  audioTracks.select.currentTime = 0;
+  audioTracks.select.play();
 
   initialize(vueObj);
 }

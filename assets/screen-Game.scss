@@ -1,5 +1,5 @@
 .screen .screen-content.screen-Game {
-  background-image: url("/images/car-race-background.png");
+  background-image: url("~assets/images/car-race-background.png");
   background-position: 0 var(--y);
   background-repeat: repeat-y;
 }
@@ -14,10 +14,10 @@
   transform: rotate(var(--rotate));
   transition: transform 275ms ease-out;
   &.car-player {
-    background-image: url("/images/car-race-player.png");
+    background-image: url("~assets/images/car-race-player.png");
     &.car-crash:after {
       content: "";
-      background-image: url("/images/car-race-crash.png");
+      background-image: url("~assets/images/car-race-crash.png");
       width: var(--crash-width);
       height: var(--crash-height);
       position: absolute;
@@ -27,12 +27,12 @@
     }
   }
   &.car-computer {
-    background-image: url("/images/car-race-computer.png");
+    background-image: url("~assets/images/car-race-computer.png");
   }
 }
 
 .stop-light {
-  background-image: url("/images/car-race-stop-light-1.png");
+  background-image: url("~assets/images/car-race-stop-light-1.png");
   width: var(--width);
   height: var(--height);
   position: absolute;
@@ -43,7 +43,7 @@
 }
 
 .score-board {
-  background-image: url("/images/car-race-score-board.png");
+  background-image: url("~assets/images/car-race-score-board.png");
   width: var(--width);
   height: var(--height);
   position: absolute;

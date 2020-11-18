@@ -38,7 +38,7 @@ $char-map: (
       $height: map-get($value, "height");
       $margin-left: map-get($value, "margin-left");
       .char-#{$name}-#{nth($char-list, $index)} {
-        background-image: url("/images/car-race-character-map-template-#{$name}.png");
+        background-image: url("~assets/images/car-race-character-map-template-#{$name}.png");
         background-position: #{$width * -($index - 1)} 0;
         width: $width;
         height: $height;

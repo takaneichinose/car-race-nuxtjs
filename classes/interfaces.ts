@@ -4,7 +4,7 @@ import * as Enums from "./enums";
 
 export interface CarRaceScreen {
   active: Enums.Screen,
-  name: String,
+  name: string,
   width: number,
   height: number,
   enum: any
@@ -50,8 +50,8 @@ export interface CarRaceData {
   scoreBoard: CarRaceScoreBoard,
   crash: CarRaceCrash,
   distanceTraveled: number,
-  images: Array<String>,
-  audios: Array<String>,
+  images: Array<string>,
+  audios: Array<string>,
   $refs: any,
   scoreFactor: number
 }
@@ -71,8 +71,8 @@ export interface CarRace {
   scoreBoard: CarRaceScoreBoard,
   crash: CarRaceCrash,
   distanceTraveled: number,
-  images: Array<String>,
-  audios: Array<String>,
+  images: Array<string>,
+  audios: Array<string>,
   $refs: any,
   scoreFactor: number,
   stoplightAnimationEnd: void

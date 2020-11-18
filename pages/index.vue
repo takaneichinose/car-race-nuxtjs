@@ -4,18 +4,24 @@
          '--width': screen.width + 'px',
          '--height': screen.height + 'px'
        }">
+    <link as="image"
+          v-for="(image, i) in images"
+          v-bind:key="'preload-image-' + i"
+          v-bind:rel="require(`~/assets/images/${image}`)"
+    />
+    <link as="audio"
+          v-for="(audio, i) in audios"
+          v-bind:key="'preload-audio-' + i"
+          v-bind:rel="require(`~/assets/audios/${audio}`)"
+    />
     <audio v-for="(audio, i) in audios"
-           v-bind:src="audio"
-           v-bind:key="i"
-           v-bind:ref="
-             'audio-' +
-             audio.substring(
-               audio.lastIndexOf('/') + 1,
-               audio.lastIndexOf('.')
-             )">
+           v-bind:src="require(`~/assets/audios/${audio}`)"
+           v-bind:key="'audio-' + i"
+           v-bind:ref="'audio-' + audio.substring(0, audio.lastIndexOf('.'))">
     </audio>
     <transition-group tag="div" name="fade">
       <div class="screen-content screen-Loading"
+           v-on:animationend="introAnimationEnd"
            v-bind:key="screen.enum.Loading"
            v-if="screen.active === screen.enum.Loading">
         <div class="loading-bar"
@@ -172,18 +178,21 @@ export default Vue.extend({
         width: Constants.CAR_CRASH_WIDTH,
         height: Constants.CAR_CRASH_HEIGHT
       } as Interfaces.CarRaceCrash,
-      audios: new Array<String>(),
+      images: new Array<string>(),
+      audios: new Array<string>(),
       distanceTraveled: 0,
       scoreFactor: Constants.SCORE_FACTOR
     } as Interfaces.CarRaceData
   },
   methods: {
+    introAnimationEnd(evt: AnimationEvent): void {
+      if (evt.animationName === "screen-animate") {
+        Methods.preload(this);
+      }
+    },
     stoplightAnimationEnd(evt: AnimationEvent): void {
       Methods.beginGame(this);
     }
-  },
-  mounted() {
-    Methods.preload(this);
   }
 });
 </script>
