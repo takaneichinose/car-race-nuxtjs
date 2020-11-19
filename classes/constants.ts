@@ -25,8 +25,8 @@ export const COLLISION_RIGHT: number = 194;
 export const TURN_ANGLE: number = 20;
 
 export const INITIAL_SPAWN_TIME: number = 5000;
-export const SPAWN_TIME_REDUCE: number = 250;
-export const SPAWN_TIME_LIMIT: number = 250;
+export const SPAWN_TIME_REDUCE: number = 125;
+export const SPAWN_TIME_LIMIT: number = 625;
 export const CAR_LANE_1: number = 90;
 export const CAR_LANE_2: number = 140;
 export const CAR_LANE_3: number = 190;
