@@ -401,16 +401,10 @@ function crashAudio(vueObj: Interfaces.CarRaceData): void {
 }
 
 function gameOverEvent(vueObj: Interfaces.CarRaceData, key: Enums.Keys, mode: Enums.KeyMode): void {
-  try {
-    audioTracks.crashed.currentTime = 0;
-    audioTracks.crashed.pause();
+  if (key === Enums.Keys.Space) {
+    audioTracks.select.currentTime = 0;
+    audioTracks.select.play();
+  
+    initialize(vueObj);
   }
-  catch (ex) {
-    console.log("Error:", ex);
-  }
-
-  audioTracks.select.currentTime = 0;
-  audioTracks.select.play();
-
-  initialize(vueObj);
 }
